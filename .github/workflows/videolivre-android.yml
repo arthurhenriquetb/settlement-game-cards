@@ -16,8 +16,7 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Check preinstalled Android SDK
-        run: sdkmanager --version
+      - uses: android-actions/setup-android@7731365548f3f81c15d4c49c8f1d29101e02cdcf
       - name: Install Android platform
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
       - uses: gradle/actions/setup-gradle@v4
