@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#121423">
+  <title>Pocket GBA</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,Roboto,sans-serif;color:#eff0fa;background:#121423;color-scheme:dark}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;background:radial-gradient(circle at 85% -10%,#3c315a55,transparent 40%),#121423}
+    .wrap{width:min(760px,100%);margin:auto;padding:24px 18px 48px}
+    header{display:flex;gap:14px;align-items:center;justify-content:space-between;margin-bottom:28px}
+    .brand{display:flex;align-items:center;gap:12px}.logo{height:52px;width:52px;border:1px solid #7770bc;background:#342c5b;border-radius:16px;display:grid;place-items:center;font-size:26px;box-shadow:0 8px 30px #0003}
+    h1{font-size:25px;letter-spacing:-.8px;margin:0} .sub{font-size:12px;color:#abb0c5;margin-top:2px}
+    button{font:inherit;cursor:pointer;border:0} button:focus-visible{outline:2px solid #a39afe;outline-offset:3px}
+    .lang{background:#25283b;color:#ced0e5;border:1px solid #3a3e59;padding:9px 12px;border-radius:11px;font-size:12px;font-weight:700}
+    .hero{border-radius:21px;background:linear-gradient(135deg,#292747,#1c2844);border:1px solid #464064;padding:22px 20px;position:relative;overflow:hidden;margin-bottom:26px}
+    .hero:after{content:"✦";position:absolute;right:24px;top:14px;font-size:72px;color:#ffffff12;pointer-events:none}
+    .eyebrow{text-transform:uppercase;letter-spacing:1.8px;font-size:10px;font-weight:800;color:#bcb0fe}
+    h2{font-size:24px;line-height:1.15;margin:9px 0 10px;letter-spacing:-.6px}
+    .hero p{font-size:13px;line-height:1.5;color:#c4c6da;margin:0;max-width:500px}
+    .section-title{display:flex;align-items:baseline;justify-content:space-between;margin:0 0 12px}
+    h3{margin:0;font-size:17px;letter-spacing:-.3px}.count{font-size:12px;color:#9399b4}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+    .game{background:#1e2233;border:1px solid #383d52;border-radius:17px;padding:14px;display:flex;flex-direction:column;min-height:195px}
+    .art{height:48px;width:48px;border-radius:13px;display:grid;place-items:center;font-weight:900;letter-spacing:-1px;font-size:18px;background:#343c58;color:#cbd5ff;margin-bottom:14px}
+    .game:nth-child(5n+1) .art{background:#58442e;color:#ffd9a4}
+    .game:nth-child(5n+2) .art{background:#2b4e49;color:#adf3d7}
+    .game:nth-child(5n+3) .art{background:#493a58;color:#ecc1ff}
+    .game:nth-child(5n+4) .art{background:#354b67;color:#b8ddff}
+    .game:nth-child(5n+5) .art{background:#59413f;color:#ffc7b3}
+    .game-title{font-weight:750;line-height:1.3;font-size:14px;overflow-wrap:anywhere}
+    .note{font-size:11px;line-height:1.4;color:#9da6bd;margin:5px 0 12px}
+    .bottom{margin-top:auto;display:flex;gap:7px;align-items:center}
+    .primary{flex:1;background:#a69bfc;color:#19142c;border-radius:10px;padding:11px 9px;font-weight:800;font-size:12px;min-height:39px}
+    .primary:active{background:#c4bcff}.secondary{flex:1;color:#c2c7de;background:#333a50;border:1px solid #424962;border-radius:10px;padding:10px 7px;font-weight:750;font-size:12px;min-height:39px}
+    .delete{flex:0 0 32px;height:36px;background:#332b37;color:#ffaeb8;border-radius:9px;font-size:18px}
+    .badge{font-size:10px;font-weight:800;letter-spacing:.2px;color:#bdc8ff;margin-bottom:7px}.badge.ready{color:#83ddbf}
+    .add{margin-top:16px;width:100%;border:1px dashed #66708a;color:#d1d9ff;background:#202637;border-radius:14px;padding:18px;font-weight:750;font-size:14px}
+    .help{padding:16px;border:1px solid #363e51;background:#1b2030;border-radius:15px;color:#aeb6cc;font-size:12px;line-height:1.6;margin-top:21px}
+    .help strong{color:#ecedfa}.footer{font-size:11px;color:#7c849f;text-align:center;margin-top:24px}
+    @media(max-width:370px){.wrap{padding:19px 12px 36px}.grid{gap:8px}.game{padding:11px}.game-title{font-size:13px}.primary,.secondary{font-size:11px}h1{font-size:22px}}
+    @media(max-width:300px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <div class="brand"><div class="logo">▣</div><div><h1>Pocket GBA</h1><div class="sub">Game Boy Advance · Android</div></div></div>
+    <button class="lang" type="button" onclick="toggleLanguage()" id="language">PT-BR</button>
+  </header>
+  <section class="hero">
+    <div class="eyebrow" data-i18n="collection">YOUR HANDHELD COLLECTION</div>
+    <h2 data-i18n="hero">Big adventures.<br>Small screen.</h2>
+    <p data-i18n="hero_text">Your GBA games, in one place. Import a game file once and play offline whenever you like.</p>
+  </section>
+  <div class="section-title"><h3 data-i18n="games">My games</h3><span class="count" id="count">0</span></div>
+  <div class="grid" id="library"></div>
+  <button class="add" type="button" onclick="PocketAndroid.importRom('new')" data-i18n="add">+ Add another GBA game</button>
+  <aside class="help"><strong data-i18n="note_title">About game files</strong><div data-i18n="note_text">Games aren't included in the APK. Select your own legally obtained .gba files from your phone. The names shown above are placeholders until their files are imported. Some requested game titles still need clarification.</div></aside>
+  <div class="footer" data-i18n="footer">No ads · No account · Your games stay on your phone</div>
+</main>
+<script>
+'use strict';
+const pt = {
+  collection:'SUA COLEÇÃO PORTÁTIL', hero:'Grandes aventuras.<br>Tela pequena.',
+  hero_text:'Seus jogos de GBA em um só lugar. Importe o arquivo uma vez e jogue sem internet.',
+  games:'Meus jogos', add:'+ Adicionar outro jogo de GBA', note_title:'Sobre os arquivos dos jogos',
+  note_text:'Os jogos não vêm incluídos no APK. Selecione arquivos .gba que você tenha direito de usar. Os nomes acima são espaços reservados até a importação dos arquivos. Alguns títulos pedidos ainda precisam de confirmação.',
+  footer:'Sem anúncios · Sem conta · Seus jogos ficam no celular', ready:'PRONTO PARA JOGAR', missing:'ARQUIVO PENDENTE', play:'Jogar', import:'Importar ROM', replace:'Trocar', remove:'Remover jogo importado', ask:'Remover este jogo do aplicativo? Seu arquivo original não será apagado.'
+};
+const en = {
+  collection:'YOUR HANDHELD COLLECTION', hero:'Big adventures.<br>Small screen.',
+  hero_text:'Your GBA games, in one place. Import a game file once and play offline whenever you like.',
+  games:'My games', add:'+ Add another GBA game', note_title:'About game files',
+  note_text:"Games aren't included in the APK. Select your own legally obtained .gba files from your phone. The names shown above are placeholders until their files are imported. Some requested game titles still need clarification.",
+  footer:'No ads · No account · Your games stay on your phone', ready:'READY TO PLAY', missing:'ROM NEEDED', play:'Play', import:'Import ROM', replace:'Replace', remove:'Remove imported game', ask:'Remove this game from the app? Your original file will not be deleted.'
+};
+let language = localStorage.getItem('pocket-language') === 'pt' ? 'pt' : 'en';
+function t(k) { return (language === 'pt' ? pt : en)[k]; }
+function applyLanguage() {
+  document.documentElement.lang = language === 'pt' ? 'pt-BR' : 'en';
+  for (const el of document.querySelectorAll('[data-i18n]')) el.innerHTML = t(el.dataset.i18n);
+  document.getElementById('language').textContent = language === 'pt' ? 'EN' : 'PT-BR';
+}
+function toggleLanguage() {
+  language = language === 'pt' ? 'en' : 'pt';
+  localStorage.setItem('pocket-language', language);
+  refreshLibrary();
+}
+function make(tag, cls, content) {
+  const el = document.createElement(tag);
+  if (cls) el.className = cls;
+  if (content !== undefined) el.textContent = content;
+  return el;
+}
+function refreshLibrary() {
+  applyLanguage();
+  const games = JSON.parse(PocketAndroid.getLibrary());
+  const container = document.getElementById('library');
+  container.replaceChildren();
+  document.getElementById('count').textContent = `${games.filter(g=>g.ready).length} / ${games.length}`;
+  for (const game of games) {
+    const card = make('article', 'game');
+    const art = make('div','art',game.title.split(/\s+/).slice(0,2).map(w => w[0]).join('').toUpperCase());
+    const badge = make('div',game.ready ? 'badge ready' : 'badge',t(game.ready ? 'ready' : 'missing'));
+    const title = make('div','game-title',game.title);
+    const note = make('div','note',game.note);
+    const bottom = make('div','bottom');
+    const action = make('button',game.ready ? 'primary' : 'secondary',t(game.ready ? 'play' : 'import'));
+    action.type = 'button';
+    action.onclick = () => game.ready ? PocketAndroid.play(game.id) : PocketAndroid.importRom(game.id);
+    bottom.appendChild(action);
+    if (game.ready) {
+      const replace = make('button','secondary',t('replace'));
+      replace.type = 'button'; replace.onclick = () => PocketAndroid.importRom(game.id);
+      bottom.appendChild(replace);
+      const del = make('button','delete','×');
+      del.type = 'button';del.title = t('remove'); del.setAttribute('aria-label',t('remove'));
+      del.onclick = () => {if (confirm(t('ask'))) PocketAndroid.removeRom(game.id);};
+      bottom.appendChild(del);
+    }
+    card.append(art,badge,title,note,bottom);
+    container.appendChild(card);
+  }
+}
+refreshLibrary();
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "pocket-gba-android",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Offline GBA engine assets for the Android APK",
+  "dependencies": {
+    "@emulatorjs/emulatorjs": "4.2.3",
+    "@emulatorjs/core-mgba": "4.2.3"
+  }
+}
