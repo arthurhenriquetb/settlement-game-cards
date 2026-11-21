@@ -8,7 +8,7 @@ The library initially has five **empty slots**:
 
 1. Super Mario Advance 4: Super Mario Bros. 3 (GBA)
 2. Super Mario Advance 2: Super Mario World (GBA)
-3. Hulk / Hook (title and platform need confirmation)
+3. Hook (Peter Pan; SNES / original Game Boy game, not known to have a GBA release)
 4. Bomberman 2 (precise GBA title needs confirmation)
 5. Bomberman 3 (precise GBA title needs confirmation)
 

@@ -38,12 +38,12 @@ public class MainActivity extends Activity {
     private static final String[] TITLES = {
         "Super Mario Advance 4: Super Mario Bros. 3",
         "Super Mario Advance 2: Super Mario World",
-        "Hulk / Hook — title to confirm",
+        "Hook (Peter Pan)",
         "Bomberman 2 — title to confirm",
         "Bomberman 3 — title to confirm"
     };
     private static final String[] NOTES = {
-        "GBA · 2003", "GBA · 2001", "Platform / title uncertain",
+        "GBA · 2003", "GBA · 2001", "SNES / original Game Boy, not GBA",
         "Exact GBA edition uncertain", "Exact GBA edition uncertain"
     };
 
